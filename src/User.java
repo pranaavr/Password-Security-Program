@@ -3,10 +3,26 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class User {
-    String name;
-    String passwordToHash;
+    private String name;
+    private String passwordToHash;
 
-    String get_SHA_256(String plaintext) {
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPasswordToHash() {
+        return this.passwordToHash;
+    }
+
+    public void setPasswordToHash(String passwordToHash) {
+        this.passwordToHash = passwordToHash;
+    }
+
+    String get_SHA_256() {
         //get salt
         SecureRandom sr = new SecureRandom();
         byte[] saltb = new byte[16];
