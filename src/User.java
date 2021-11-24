@@ -22,7 +22,7 @@ public class User {
         this.passwordToHash = passwordToHash;
     }
 
-    String get_SHA_256() {
+    String getSHA256() {
         //get salt
         SecureRandom sr = new SecureRandom();
         byte[] saltb = new byte[16];
