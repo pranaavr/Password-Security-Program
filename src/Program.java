@@ -8,7 +8,15 @@ public class Program {
         System.out.println("New User: ");
         user1.setName(scan.nextLine());
         System.out.println("New Password: ");
-        user1.setPasswordToHash(scan.nextLine());
+        
+        String pass = scan.nextLine();
+        if (user1.verifyPassword(pass)) {
+            user1.setPasswordToHash(pass);
+        }
+        else {
+            System.out.println("fail");
+            return;
+        }
 
 
         System.out.println("Username: "+ user1.getName());

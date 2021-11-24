@@ -21,6 +21,7 @@ public class User {
     public void setPasswordToHash(String passwordToHash) {
         this.passwordToHash = passwordToHash;
     }
+    
 
     String getSHA256() {
         //get salt
@@ -46,4 +47,35 @@ public class User {
         }
         return encryptedPass;
     }
+
+    public Boolean verifyPassword(String passin) {
+        //verifies if password follows criteria
+        int lCount = 0;    //count of letters
+        int nCount = 0;    //count of numbers
+        int repCount = 0;   //count of repeating characters
+        boolean flag = true;
+
+        char b = 'a';
+        for (int i=0; i<passin.length(); i++) {
+            char c = passin.charAt(i);
+            if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
+                lCount++;
+            }
+            if (Character.isDigit(c)) {
+                nCount++;
+            }
+            if ( c==b && i!=0 ) {
+                repCount++;
+            }
+            b = c;
+        }
+
+        if (passin.length()<8 || nCount<1 || lCount<1) {
+            flag = false;
+        }
+        return flag;
+    }
+
 }
+
+//https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/ 
