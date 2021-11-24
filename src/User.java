@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 public class User {
     private String name;
     private String passwordToHash;
+    static final String[] commonPasswords = {"123456","123456789","12345","qwerty","password","12345678","iloveyou","111111","1q2w3e","123123"};
 
     public String getName() {
         return this.name;
@@ -64,10 +65,16 @@ public class User {
             if (Character.isDigit(c)) {
                 nCount++;
             }
-            if ( c==b && i!=0 ) {
+            if ( c==b && i!=0 ) {           //incomplete implementation
                 repCount++;
             }
             b = c;
+        }
+
+        for (String password:commonPasswords) {
+            if (passin == password) {
+                flag = false;
+            }
         }
 
         if (passin.length()<8 || nCount<1 || lCount<1) {
