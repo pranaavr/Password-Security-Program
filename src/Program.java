@@ -4,11 +4,11 @@ import java.io.*;
 public class Program {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
+        
         User user1 = new User();
         
         BufferedWriter bw = new BufferedWriter(new FileWriter("passwords.txt"));
-        bw.write("money");
-
+        
         System.out.println("New User: ");
         user1.setName(scan.nextLine());
         System.out.println("New Password: ");
