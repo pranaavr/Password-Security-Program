@@ -1,13 +1,13 @@
 import java.util.Scanner;
-import java.io.File;
+import java.io.*;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         User user1 = new User();
         
-        File text = new File("passwords.txt");
-        System.out.println("File created: " + text.getName());
+        BufferedWriter bw = new BufferedWriter(new FileWriter("passwords.txt"));
+        bw.write("money");
 
         System.out.println("New User: ");
         user1.setName(scan.nextLine());
@@ -21,14 +21,12 @@ public class Program {
             System.out.println("fail");
             return;
         }
+        
+        bw.write(user1.getName()+":");
+        bw.write(user1.getSHA256()+"\n");
 
-        System.out.println("Username: "+ user1.getName());
-        System.out.println("Password: " + user1.getPasswordToHash());
-        System.out.println(user1.getSHA256());
-
-
-        text.delete();
-        System.out.println("Deleted file: "+text.getName());
+        bw.close();
+        new File("passwords.txt").delete();
     }
 
 }
