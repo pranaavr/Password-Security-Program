@@ -1,11 +1,12 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Objects;
 
 public class User {
     private String name;
     private String passwordToHash;
-    static final String[] commonPasswords = {"123456","123456789","12345","qwerty","password","12345678","iloveyou","111111","1q2w3e","123123"};
+    static final String[] commonPasswords = {"123456","123456789","12345","qwerty","password","12345678","iloveyou","111111","1q2w3e","123123","testpass123"};
 
     public String getName() {
         return this.name;
@@ -24,7 +25,7 @@ public class User {
     }
     
 
-    String getSHA256() {
+    public String getSHA256() {
         //get salt
         SecureRandom sr = new SecureRandom();
         byte[] saltb = new byte[16];
@@ -53,31 +54,25 @@ public class User {
         //verifies if password follows criteria
         int lCount = 0;    //count of letters
         int nCount = 0;    //count of numbers
-        int repCount = 0;   //count of repeating characters
         boolean flag = true;
 
-        char b = 'a';
         for (int i=0; i<passin.length(); i++) {
             char c = passin.charAt(i);
             if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
                 lCount++;
             }
-            if (Character.isDigit(c)) {
+            else if (Character.isDigit(c)) {
                 nCount++;
             }
-            if ( c==b && i!=0 ) {           //incomplete implementation
-                repCount++;
-            }
-            b = c;
         }
 
-        for (String password:commonPasswords) {
-            if (passin == password) {
+        for (String password:commonPasswords) {         //verify input password is not the same as the a common password
+            if (Objects.equals(passin, password)) {
                 flag = false;
             }
         }
 
-        if (passin.length()<8 || nCount<1 || lCount<1) {
+        if (passin.length()<8 || nCount<1 || lCount<1) {    //verify length is greater than 8 and has atleast 1 number and letter
             flag = false;
         }
         return flag;
